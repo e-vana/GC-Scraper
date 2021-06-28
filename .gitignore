@@ -1,0 +1,5 @@
+/client/node_modules
+/client/backup1
+/client/.env.production
+/server/node_modules
+/server/.env
