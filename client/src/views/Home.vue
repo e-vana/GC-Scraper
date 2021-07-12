@@ -10,6 +10,13 @@
 
       <div class="mt-5" v-if="$store.getters.getKeywords.length > 0">
         <h4>Current Keywords</h4>
+
+        <div class="mb-3">
+          <transition name="fade" mode="out-in">
+            <code :key="lastUpdated">Last Retrieved @ {{lastUpdated}}</code>
+          </transition>
+        </div>
+
         <KeywordCard v-for="keyword in $store.getters.getKeywords" :key="keyword._id"
           :keyword="keyword.keyword"
           :lastUpdated="keyword.lastUpdated"
@@ -24,7 +31,6 @@
         <b-alert class="mt-4" show v-if="isError" variant="danger" >{{errorMessage}}</b-alert>
         <b-alert class="mt-4" show v-if="isSuccess" variant="success" >{{successMessage}}</b-alert>
         <button @click="addKeyword" class="btn-add mt-3">Add a Keyword</button>
-        <!-- <button @click="goFetch">Fetch</button> -->
       </div>
 
     </div>
@@ -33,7 +39,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import axios from 'axios'
 import KeywordCard from '../components/KeywordCard.vue'
 
@@ -50,15 +55,22 @@ export default {
       errorMessage: '',
       isSuccess: false,
       successMessage: '',
+      lastUpdated: ''
     }
     
   },
   created: function(){
-    this.$store.dispatch('fetchKeywords');
+    this.goFetch();
+
+    setInterval(() => {
+      this.goFetch()
+    }, 10000)
   },
   methods: {
     goFetch: function(){
-      this.$store.dispatch('fetchKeywords')
+      this.$store.dispatch('fetchKeywords');
+      let lastUpdated = new Date();
+      this.lastUpdated = lastUpdated.toTimeString();
     },
     addKeyword: async function(){
       try {
@@ -70,7 +82,8 @@ export default {
         if(response){
           this.isError = false;
           this.isSuccess = true;
-          this.successMessage = 'Your keyword was succesfully added to the scrape queue.'
+          this.successMessage = 'Your keyword was succesfully added to the scrape queue.';
+          this.searchKeyword = '';
           await this.$store.dispatch('fetchKeywords');
         }
       } catch (error) {
@@ -88,19 +101,17 @@ export default {
 </script>
 
 <style>
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .container {
   margin-top: 50px;
 }
-
-/* .btn-add {
-  border: none;
-  border-radius: 5px;
-  background-color:rgb(104, 118, 182);
-  padding: 20px 20px;
-  font-weight: bold;
-  color: rgb(247, 247, 247);
-  margin: 10px 0px;
-} */
 
 .btn-add {
   background-color: rgb(137, 152, 216);

@@ -57,14 +57,14 @@ async function startup(){
 
     // see cron npm for timing documentation
     // starts the main cron loop
-    cron.schedule('*/30 * * * *', async () => {
-      try {
-        console.log(`Web Scraper running @ ${new Date().toUTCString()}`)
-        await scheduledScraping();
-      } catch (error) {
-        console.log(error);
-      }
-    })
+    // cron.schedule('*/45 * * * *', async () => {
+    //   try {
+    //     console.log(`Web Scraper running @ ${new Date().toUTCString()}`)
+    //     await scheduledScraping();
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // })
   } catch (error) {
     console.log(error);
   }

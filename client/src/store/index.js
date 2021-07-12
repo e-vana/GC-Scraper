@@ -16,10 +16,7 @@ export default new Vuex.Store({
   actions: {
     fetchKeywords: async function ({commit}) {
       try {
-        console.log('vuex fetchkeyword fired')
-        console.log(process.env.VUE_APP_API_URL)
         let keywords = await axios.get(process.env.VUE_APP_API_URL+'/scrapes', {headers: {"Content-Type": "application/json"}});
-        console.log(keywords);
         if(keywords.data){
           keywords.data.forEach(keyword => {
             keyword.results = keyword.data.length;
