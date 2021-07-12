@@ -5,7 +5,7 @@
         <h2>Guitar Center Scraper</h2>
         <p>This application is a web scraper that scrapes the guitarcenter.com used section for certain keywords.  You can setup alerts to be notified when a keyword matches a certain price threshold.  The scraping is run several times an hour to maintain an approximate representation of the classified sections.</p>
         <p>You can add a keyword using the input field below to submit a keyword to the scraping queue.  The next scraping cycle will include this keyword in its process and will update when the data is available.</p>
-        <p>Want to learn more about this project?  Visit the github repository here.</p>
+        <p>Want to learn more about this project?  Visit the github repository <a href="https://github.com/e-vana/GC-Scraper">here</a>.</p>
       </div>
 
       <div class="mt-5" v-if="$store.getters.getKeywords.length > 0">
