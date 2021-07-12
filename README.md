@@ -1,5 +1,7 @@
 # GC-Scraper
 
+![](gcWatcher.gif)
+
 ## Setup
 Navigate to the base directory.  To run the front end:
 ### Frontend Vue App
